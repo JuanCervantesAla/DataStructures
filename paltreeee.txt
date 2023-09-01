@@ -1,0 +1,126 @@
+template <class T>
+void BinaryTree<T>::remove(Position& newRoot){
+
+    if(newRoot == nullptr){
+
+        return;
+
+    }
+
+    if(newRoot->getData()==element){
+
+        Node<T>* aux = new Node<T>*;
+        aux=newRoot;
+
+        if(isLeaf(newRoot)){
+            newRoot == nullptr;
+        }
+
+        if(newRoot->getLeft()==nullptr){
+            newRoot= newRoot->getRight();
+        }
+
+        if(newRoot->getRight()==nullptr){
+            newRoot= newRoot->getLeft();
+        }
+
+        delete aux;
+    }else{
+        
+        Node<T>* replace = highest(newRoot->getLeft()->getData());
+        remove(replace, newRoot->getLeft());
+
+    }
+
+}
+
+
+
+template <class T>
+void BinaryTree<T>::insert(Position& newRoot,T element){
+
+    //If its the main root, insert the element
+    if(newRoot == nullptr){
+
+        //Creates an auxiliar node, in the auxliar node into the new root(main root)
+        /*
+        Node<T>* aux(new Node<T>(element));
+        newRoot = aux;*/
+        newRoot->setData(element);
+
+        if(newRoot==nullptr){
+            throw Exception("Problem on memory, insert");
+        }
+
+    }else{
+        if(element<newRoot->getData()){
+
+            insert(newRoot->getLeft(),element);    
+
+        }else{
+            insert(newRoot->getRight(),element);
+        }
+    }
+
+}
+
+
+
+std::cout<<"Entre"<<std::endl;
+
+    if(root==nullptr){
+
+        return root;
+
+    }
+
+    Position newRootL = root->getLeft();
+    copyRoot->getLeft() = newRootL;
+    copyAll(root->getLeft(),copyRoot->getLeft());
+
+
+    Position newRootR = root->getRight();
+    copyRoot->getRight() = newRootL;
+    copyAll(root->getRight(),copyRoot->getRight());
+    
+    this->root=newRoot;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+    Node<T>* newRootLeft(rootP->getLeft());
+
+    this->insert(newRootLeft->getData());
+    copyAll(rootP->getLeft());
+
+    Node<T>* newRootRight(rootP->getRight());
+    this->insert(newRootRight->getData());
+    copyAll(rootP->getRight());
+    */
+
+
+
+Node<T>* aux(new Node<T>);
+
+    if(rootP==nullptr){
+        return rootP;
+    }
+
+
+    aux->setData(rootP->getData());
+    std::cout<<aux->getData();
+    aux->getLeft() = copyAll(rootP->getLeft());
+    aux->getRight() = copyAll(rootP->getRight());
+    
+    return aux;
